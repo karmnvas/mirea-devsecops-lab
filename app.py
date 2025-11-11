@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-DB_PASSWORD = "P@ssw0rd"
+DB_PASSWORD = "<REDACTED>"
 
 
 def get_db():
@@ -15,7 +15,7 @@ def get_user():
     name = request.args.get('name', '')
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM users WHERE name = '" + name + "'")
+    cur.execute("SELECT * FROM users WHERE name = ?", (name,)) 
     row = cur.fetchone()
     if row:
         return {"id": row[0], "name": row[1]}
